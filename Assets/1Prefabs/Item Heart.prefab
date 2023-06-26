@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8861398659209252980}
   - component: {fileID: 8656576690925567315}
+  - component: {fileID: 3998974724499219551}
   m_Layer: 0
   m_Name: Item Heart
   m_TagString: Item
@@ -49,6 +50,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   value: 20
+--- !u!136 &3998974724499219551
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8192561803565861582}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8656576689729373008
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,17 @@ public class Player : MonoBehaviour
     public float speed;
     public GameObject[] weapons;
     public bool[] hasWeapons;
+    public GameObject[] grenades;
+    public int hasGrenades;
+
+    public int ammo;
+    public int coin;
+    public int health;
+    
+    public int maxAmmo;
+    public int maxCoin;
+    public int maxHealth;
+    public int maxHasGrenades;
 
     float hAxis;
     float vAxis;
@@ -60,6 +71,8 @@ public class Player : MonoBehaviour
         sDown3 = Input.GetButtonDown("Swap3");
     }
 
+
+    // 기본 이동 로직
     void Move()
     {
         moveVec = new Vector3(hAxis, 0, vAxis).normalized;
@@ -85,6 +98,7 @@ public class Player : MonoBehaviour
         transform.LookAt(transform.position + moveVec);
     }
 
+    // 점프
     void Jump()
     {
         if (jDown && moveVec == Vector3.zero && !isJump && !isDodge && !isSwap)
@@ -96,6 +110,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    // 회피
     void Dodge()
     {
         if (jDown && moveVec != Vector3.zero && !isJump && !isDodge && !isSwap)
@@ -115,6 +130,7 @@ public class Player : MonoBehaviour
         isDodge = false;
     }
 
+    // 무기 스왑
     void Swap()
     {
         int weaponIndex = -1;
@@ -145,6 +161,7 @@ public class Player : MonoBehaviour
         isSwap = false;
     }
 
+    // 무기 스왑동안 이동 제어
     void Interation()
     {
         if (iDown && nearObject != null && !isJump && !isDodge)
@@ -160,6 +177,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    // 무한 점프 방지
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Floor")
@@ -169,6 +187,40 @@ public class Player : MonoBehaviour
         }
     }
 
+    // 기타 아이템 입수 로직
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Item")
+        {
+            Item item = other.GetComponent<Item>();
+            switch(item.type)
+            {
+                case Item.Type.Ammo:
+                    ammo += item.value;
+                    if (ammo > maxAmmo)
+                        ammo = maxAmmo;
+                    break;
+                case Item.Type.Coin:
+                    coin += item.value;
+                    if (coin > maxCoin)
+                        coin = maxCoin;
+                    break;
+                case Item.Type.Heart:
+                    health += item.value;
+                    if (health > maxHealth)
+                        health = maxHealth;
+                    break;
+                case Item.Type.Grenade:
+                    hasGrenades += item.value;
+                    if (hasGrenades > maxHasGrenades)
+                        hasGrenades = maxHasGrenades;
+                    break;
+            }
+            Destroy(other.gameObject);
+        }
+    }
+
+    // 무기 입수 확인 로직
     void OnTriggerStay(Collider other)
     {
         if (other != null && other.CompareTag("Weapon"))
