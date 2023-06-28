@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// 아이템 회전 효과 로직
+// Item effect 
 public class Item : MonoBehaviour
 {
     public enum Type { Ammo, Coin, Grenade, Heart, Weapon };

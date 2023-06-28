@@ -4,7 +4,7 @@ using UnityEditor.UIElements;
 using UnityEngine;
 
 
-// 아이템 공전 로직
+// Item orbit effect
 public class Orbit : MonoBehaviour
 {
     public Transform target;
